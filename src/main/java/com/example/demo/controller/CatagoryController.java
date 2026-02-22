@@ -6,10 +6,9 @@ import com.example.demo.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/categories")
@@ -24,9 +23,22 @@ public class CatagoryController {
         return new ResponseEntity<>(categoryService.createCategory(categoryDTO), HttpStatus.CREATED);
     }
 
-    //get Category
-    //get all Category
+    //get All Category
+    @GetMapping
+    public List<CategoryDTO> getCategories(){
+        return categoryService.getAllCategories();
+    }
+    //get Category by id
+
+    @GetMapping("/{id}")
+    public CategoryDTO getCategortyById(@PathVariable Long id){
+       return categoryService.getCategoryById(id);
+    }
     //delete Category
+    @DeleteMapping("/{id}")
+    public String deleteCategory(@PathVariable Long id){
+        return categoryService.deleteCategory(id);
+    }
     //
 
 }
